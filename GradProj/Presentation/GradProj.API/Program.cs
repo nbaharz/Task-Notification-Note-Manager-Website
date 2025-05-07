@@ -1,4 +1,4 @@
-
+using GradProj.Persistance;
 namespace GradProj.API
 {
     public class Program
@@ -14,6 +14,8 @@ namespace GradProj.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddPersistenceServices(builder.Configuration);
+        
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -31,6 +33,8 @@ namespace GradProj.API
             app.MapControllers();
 
             app.Run();
+
+            
         }
     }
 }

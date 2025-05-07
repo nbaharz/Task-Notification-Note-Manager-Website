@@ -15,7 +15,7 @@ namespace GradProj.Persistance.Contexts
         {
 
         }
-        public GradProjDbContext(DbContextOptions<GradProjDbContext> options) : base(options)
+        public GradProjDbContext(DbContextOptions options) : base(options)
         {
 
         }
