@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class Task
+    public class ToDo
     {
         public int ID { get; set; }
 

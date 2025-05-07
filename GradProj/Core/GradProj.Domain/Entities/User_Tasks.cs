@@ -18,6 +18,6 @@ namespace GradProj.Domain.Entities
         public virtual User User { get; set; }
 
         [ForeignKey(nameof(TaskID))]
-        public virtual Task Task { get; set; }
+        public virtual ToDo Task { get; set; }
     }
 }
