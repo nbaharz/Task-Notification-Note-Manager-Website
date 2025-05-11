@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class UserTrackedProducts
+    public class UserTrackedProducts:BaseEntity
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
-        
         public int TrackedProductId { get; set; }
         [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; } = null!;

@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class User_Tasks
+    public class User_Tasks:BaseEntity
     {
-        public int ID { get; set; }  // UserTask unique ID
-        public int UserID { get; set; }  // Hangi kullanıcıya ait
-        public int TaskID { get; set; }  // Task'ın ID'si
+        public int UserId { get; set; }  
+        public int TaskId { get; set; }  
 
         // Navigation properties
-        [ForeignKey(nameof(UserID))]
+        [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; }
 
-        [ForeignKey(nameof(TaskID))]
+        [ForeignKey(nameof(TaskId))]
         public virtual ToDo Task { get; set; }
     }
 }

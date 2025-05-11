@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class Reminder
+    public class Reminder:BaseEntity
     {
-        public int ID { get; set; }
-        public int UserID { get; set; }
+        public int UserId { get; set; }
 
         [EnumDataType(typeof(ReferenceType))]
         public ReferenceType referenceType { get; set; } // The type of the related entity (e.g., Task, Event) 
@@ -23,7 +22,7 @@ namespace GradProj.Domain.Entities
         //[ForeignKey(nameof(ReferenceID))]
         //...Burada hem task olabilir hem event, nasil FK tanimlayacagiz?
 
-        [ForeignKey(nameof(UserID))]
+        [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
 
 

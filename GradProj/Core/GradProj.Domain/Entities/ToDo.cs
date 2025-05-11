@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class ToDo
+    public class ToDo:BaseEntity
     {
-        public int ID { get; set; }
-
         [Required]
-        public int UserID { get; set; }
+        public int UserId { get; set; }
 
         [Required]
         public string Item { get; set; } = string.Empty;
@@ -21,11 +19,9 @@ namespace GradProj.Domain.Entities
         [EnumDataType(typeof(TaskPriority))]
         public TaskPriority Priority { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
         public bool IsCompleted { get; set; } = false;
 
-        [ForeignKey(nameof(UserID))]
+        [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
     }
 

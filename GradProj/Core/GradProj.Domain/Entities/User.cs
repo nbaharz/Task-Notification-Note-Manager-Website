@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class User
+    public class User:BaseEntity
     {
-        public int ID { get; set; }
-
         [Required, StringLength(30)]
         public string Name { get; set; } = string.Empty;
 

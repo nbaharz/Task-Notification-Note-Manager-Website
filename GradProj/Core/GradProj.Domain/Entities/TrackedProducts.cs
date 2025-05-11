@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class TrackedProducts
+    public class TrackedProducts:BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public bool IsDiscounted { get; set; } = false;
         public Uri Url { get; set; }

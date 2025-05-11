@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class Notification
+    public class Notification:BaseEntity 
     {
-        public int ID { get; set; }
-        public int UserID { get; set; }
+        public int UserId { get; set; }
         public string Message { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
+        
         public bool IsRead = false;
-        [ForeignKey(nameof(UserID))]
+        [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
 
     }

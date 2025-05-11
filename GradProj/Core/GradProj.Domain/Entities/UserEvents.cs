@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class UserEvents
+    public class UserEvents:BaseEntity
     {
-        public int ID { get; set; }  // UserEvent unique ID
-        public int UserID { get; set; }  // Hangi kullanıcıya ait
-        public int EventID { get; set; }  // Event'in ID'si
+        public int UserId { get; set; }  // Hangi kullanıcıya ait
+        public int EventId { get; set; }  // Event'in ID'si
 
         // Navigation properties
-        [ForeignKey(nameof(UserID))]
-        public virtual User User { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public virtual required User User { get; set; }
 
-        [ForeignKey(nameof(EventID))]
-        public virtual Event Event { get; set; }
+        [ForeignKey(nameof(EventId))]
+        public virtual required Event Event { get; set; }
     }
 }
