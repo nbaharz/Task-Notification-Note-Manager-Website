@@ -28,7 +28,7 @@ namespace GradProj.Persistance.Contexts
         public DbSet<ToDo> Task { get; set; }
         public DbSet<TrackedProducts> TrackedProducts { get; set; }
         public DbSet<User_Tasks> User_Tasks { get; set; }
-        public DbSet<UserEvents> User_Events { get; set; }
+        public DbSet<User_Events> User_Events { get; set; }
         public DbSet<UserTrackedProducts> UserTrackedProducts { get; set; }
 
     }

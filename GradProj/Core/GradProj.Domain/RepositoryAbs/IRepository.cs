@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GradProj.Domain.Entities;
-using GradProj.Domain.RepositoryAbs;
 
-namespace GradProj.Application.Abstractions.Repository
+namespace GradProj.Domain.RepositoryAbs
 {
-    public interface IUserRepository: IRepository<User>
+    public interface IRepository<TEntity>where TEntity : BaseEntity
     {
     }
 }

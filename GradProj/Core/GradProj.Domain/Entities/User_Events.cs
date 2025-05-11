@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
-    public class UserEvents:BaseEntity
+    public class User_Events:BaseEntity
     {
         public int UserId { get; set; }  // Hangi kullanıcıya ait
         public int EventId { get; set; }  // Event'in ID'si
