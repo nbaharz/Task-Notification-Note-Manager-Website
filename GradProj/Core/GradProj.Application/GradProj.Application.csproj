@@ -10,8 +10,4 @@
     <ProjectReference Include="..\GradProj.Domain\GradProj.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ServiceImp\" />
-  </ItemGroup>
-
 </Project>
