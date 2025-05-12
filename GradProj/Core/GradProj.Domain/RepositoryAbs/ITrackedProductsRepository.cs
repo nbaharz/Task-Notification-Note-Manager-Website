@@ -8,7 +8,7 @@ using GradProj.Domain.RepositoryAbs;
 
 namespace GradProj.Application.Abstractions.Repository
 {
-    public class ITrackedProductsRepository: IRepository<TrackedProducts>
+    public interface ITrackedProductsRepository: IRepository<TrackedProducts>
     {
     }
 }

@@ -10,5 +10,6 @@ namespace GradProj.Application.Abstractions.Repository
 {
     public interface INotificationRepository: IRepository<Notification>
     {
+
     }
 }

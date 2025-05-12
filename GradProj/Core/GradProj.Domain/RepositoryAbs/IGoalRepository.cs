@@ -9,6 +9,7 @@ using GradProj.Domain.RepositoryAbs;
 namespace GradProj.Application.Abstractions.Repository
 {
     public interface IGoalRepository: IRepository<Goal>
-    {
+    {   
+
     }
 }
