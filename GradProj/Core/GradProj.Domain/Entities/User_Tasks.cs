@@ -9,8 +9,8 @@ namespace GradProj.Domain.Entities
 {
     public class User_Tasks:BaseEntity
     {
-        public int UserId { get; set; }  
-        public int TaskId { get; set; }  
+        public Guid UserId { get; set; }  
+        public Guid TaskId { get; set; }  
 
         // Navigation properties
         [ForeignKey(nameof(UserId))]

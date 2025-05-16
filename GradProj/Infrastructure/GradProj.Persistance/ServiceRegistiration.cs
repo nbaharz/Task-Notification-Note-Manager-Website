@@ -8,6 +8,7 @@ using GradProj.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace GradProj.Persistance
 {
@@ -15,8 +16,10 @@ namespace GradProj.Persistance
     {
         public static void AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<GradProjDbContext>(options => options.UseMySQL(configuration.GetConnectionString("DefaultConnectionString")));
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+            services.AddDbContext<GradProjDbContext>(options =>
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace GradProj.Domain.Entities
     public class ToDo:BaseEntity
     {
         [Required]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [Required]
         public string Item { get; set; } = string.Empty;

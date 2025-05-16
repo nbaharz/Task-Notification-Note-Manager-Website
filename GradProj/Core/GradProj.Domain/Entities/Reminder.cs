@@ -10,7 +10,7 @@ namespace GradProj.Domain.Entities
 {
     public class Reminder:BaseEntity
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [EnumDataType(typeof(ReferenceType))]
         public ReferenceType referenceType { get; set; } // The type of the related entity (e.g., Task, Event) 

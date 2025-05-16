@@ -10,8 +10,8 @@ namespace GradProj.Domain.Entities
 {
     public class User_Events:BaseEntity
     {
-        public int UserId { get; set; }  // Hangi kullanıcıya ait
-        public int EventId { get; set; }  // Event'in ID'si
+        public Guid UserId { get; set; }  // Hangi kullanıcıya ait
+        public Guid EventId { get; set; }  // Event'in ID'si
 
         // Navigation properties
         [ForeignKey(nameof(UserId))]

@@ -9,8 +9,8 @@ namespace GradProj.Domain.Entities
 {
     public class UserTrackedProducts:BaseEntity
     {
-        public int UserId { get; set; }
-        public int TrackedProductId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid TrackedProductId { get; set; }
         [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; } = null!;
 
