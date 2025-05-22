@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +10,12 @@ using GradProj.Domain.RepositoryAbs;
 
 namespace GradProj.Application.ServiceImp
 {
-    public class UserService : GenericService<User>, IUserService
+    public class GoalService<T> : GenericService<Goal>, IGoalService where T : BaseEntity
     {
-        private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository repository) : base(repository)
+        private readonly IGoalRepository _goalRepository;
+        public GoalService(IGoalRepository goalrepository) : base(goalrepository)
         {
-            _userRepository = repository;
+            _goalRepository = goalrepository;
         }
     }
 }
