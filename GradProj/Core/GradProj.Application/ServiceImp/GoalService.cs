@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GradProj.Application.Abstractions.Repository;
+using GradProj.Domain.RepositoryAbs;
 using GradProj.Application.ServiceAbs;
 using GradProj.Domain.Entities;
-using GradProj.Domain.RepositoryAbs;
 
 namespace GradProj.Application.ServiceImp
 {
-    public class GoalService<T> : GenericService<Goal>, IGoalService where T : BaseEntity
+    public class GoalService : GenericService<Goal>, IGoalService 
     {
         private readonly IGoalRepository _goalRepository;
         public GoalService(IGoalRepository goalrepository) : base(goalrepository)

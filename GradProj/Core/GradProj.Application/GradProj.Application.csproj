@@ -14,8 +14,4 @@
     <ProjectReference Include="..\GradProj.Domain\GradProj.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DI\" />
-  </ItemGroup>
-
 </Project>

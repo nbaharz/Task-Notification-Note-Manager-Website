@@ -9,7 +9,7 @@ using GradProj.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace GradProj.Domain.RepositoryConcretes
+namespace GradProj.Persistance.RepositoryImp
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
