@@ -10,7 +10,7 @@ using GradProj.Domain.RepositoryAbs;
 
 namespace GradProj.Application.ServiceImp
 {
-    public class NotificationService<T> : GenericService<Notification>, INotificationService where T : BaseEntity
+    public class NotificationService : GenericService<Notification>, INotificationService 
     {
         private readonly INotificationRepository _notificationRepository;
         public NotificationService(INotificationRepository notificationRepository) : base(notificationRepository)

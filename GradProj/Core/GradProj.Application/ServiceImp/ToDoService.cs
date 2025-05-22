@@ -10,7 +10,7 @@ using GradProj.Domain.RepositoryAbs;
 
 namespace GradProj.Application.ServiceImp
 {
-    public class ToDoService<T> : GenericService<ToDo>, IToDoService where T : BaseEntity
+    public class ToDoService : GenericService<ToDo>, IToDoService 
     {
         private readonly IToDoRepository _toDoRepository;
         public ToDoService(IToDoRepository toDoRepository) : base(toDoRepository)

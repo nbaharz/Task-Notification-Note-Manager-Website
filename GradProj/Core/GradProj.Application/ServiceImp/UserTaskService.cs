@@ -10,7 +10,7 @@ using GradProj.Domain.RepositoryAbs;
 
 namespace GradProj.Application.ServiceImp
 {
-    public class UserTaskService<T> : GenericService<User_Tasks>, IUserTaskService where T : BaseEntity
+    public class UserTaskService : GenericService<User_Tasks>, IUserTaskService 
     {
         private readonly IUserTaskRepository _userTaskRepository;
         public UserTaskService(IUserTaskRepository userTaskRepository) : base(userTaskRepository)

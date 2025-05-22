@@ -10,7 +10,7 @@ using GradProj.Domain.RepositoryAbs;
 
 namespace GradProj.Application.ServiceImp
 {
-    public class TrackedProductsService<T> : GenericService<TrackedProducts>, ITrackedProductsService where T : BaseEntity
+    public class TrackedProductsService : GenericService<TrackedProducts>, ITrackedProductsService
     {
         private readonly ITrackedProductsRepository _trackedProductsRepository;
         public TrackedProductsService(ITrackedProductsRepository trackedProductsRepository) : base(trackedProductsRepository)
