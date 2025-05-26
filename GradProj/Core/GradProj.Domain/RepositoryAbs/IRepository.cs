@@ -19,7 +19,7 @@ namespace GradProj.Domain.RepositoryAbs
 
         void UpdateAsync(T entity);
 
-        void DeleteAsync(int id);
+        void DeleteAsync(Guid id);
 
         //Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate);
 

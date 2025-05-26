@@ -22,7 +22,7 @@ namespace GradProj.Application.ServiceImp
            await _repository.AddAsync(entity);
         }
 
-        public void DeleteAsync(int id)
+        public void DeleteAsync(Guid id)
         {
             _repository.DeleteAsync(id);
         }
