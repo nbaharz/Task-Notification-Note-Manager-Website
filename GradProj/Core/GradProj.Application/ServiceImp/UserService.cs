@@ -46,6 +46,7 @@ namespace GradProj.Application.ServiceImp
                     Surname = newuser.Surname,
                     Email = newuser.Email,
                     Password = newuser.Password,
+                    Role = "User"
                 };
                 _repository.AddAsync(NewUser);
                

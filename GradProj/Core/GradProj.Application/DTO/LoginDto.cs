@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GradProj.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace GradProj.Application.DTO
 {
-    public class LoginDto //login 
+    public class LoginDto : User //login 
     {
 
         public Guid UserId { get; set; }
-        public string Email { get; set; } = string.Empty;      
-        public string Password { get; set; } = string.Empty;
+        public required string Email { get; set; }    
+        public required string  Password { get; set; }
+
+        public string Role { get; set; }
 
     }
 }
