@@ -28,9 +28,9 @@ namespace GradProj.Persistance.RepositoryImp
             _dbContext.SaveChanges();
         }
 
-        public async void DeleteAsync(int id)
+        public  void DeleteAsync(Guid id)
         {
-            var entity = await _dbSet.FindAsync(id);
+            var entity =  _dbSet.Find(id);
             if (entity != null)
             {
                 _dbSet.Remove(entity);

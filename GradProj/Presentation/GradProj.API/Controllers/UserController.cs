@@ -36,7 +36,7 @@ namespace GradProj.API.Controllers
             return NoContent();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             _userService.DeleteAsync(id);
             return NoContent();

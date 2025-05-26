@@ -23,7 +23,7 @@ namespace GradProj.Application.ServiceImp
         }
         public async Task CreateTaskAsync(ToDo task, LoginDto User) // cerezde id saklamak yerine mail ve sifre ile tekrardan kullanici yi getirebiliriz.
         {
-            var userholder = _userRepository.GetSingleAsync(x => x.Id == User.Id).FirstOrDefault();
+            var userholder = _userRepository.GetSingleAsync(x => x.Id == User.UserId).FirstOrDefault();
             if (userholder == null)
             {
                 throw new Exception("There is not such a User");
@@ -34,7 +34,7 @@ namespace GradProj.Application.ServiceImp
                 var userTask = new User_Tasks 
                 {
                     TaskId = task.Id,
-                    UserId = User.Id,
+                    UserId = User.UserId,
                   
                 };
                 await _repository.AddAsync(task);

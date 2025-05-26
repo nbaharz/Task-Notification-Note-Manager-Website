@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GradProj.Application.DTO
 {
-    public class LoginDto : User //login 
+    public class LoginDto //login 
     {
 
         public Guid UserId { get; set; }

@@ -39,7 +39,8 @@ namespace GradProj.Application.ServiceImp
         {
 
             var checkuser = _repository.GetSingleAsync(u => u.Email == newuser.Email).FirstOrDefault();
-            if (checkuser == null) {
+            if (checkuser == null)
+            {
                 var NewUser = new User
                 {
                     Name = newuser.Name,
@@ -49,9 +50,12 @@ namespace GradProj.Application.ServiceImp
                     Role = "User"
                 };
                 _repository.AddAsync(NewUser);
-               
-                }
-            return newuser;
+                return newuser;
+            }
+            else {
+                throw new Exception("This email has already signed in");
+            }
+         
 
 
         }

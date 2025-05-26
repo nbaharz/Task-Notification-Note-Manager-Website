@@ -18,7 +18,7 @@ namespace GradProj.Application.ServiceAbs
 
         void UpdateAsync(T entity);
 
-        void DeleteAsync(int id);
+        void DeleteAsync(Guid id);
 
     }
 }

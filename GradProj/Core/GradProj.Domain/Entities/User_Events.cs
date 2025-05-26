@@ -15,9 +15,9 @@ namespace GradProj.Domain.Entities
 
         // Navigation properties
         [ForeignKey(nameof(UserId))]
-        public virtual required User User { get; set; }
+        public virtual  User? User { get; set; }
 
         [ForeignKey(nameof(EventId))]
-        public virtual required Event Event { get; set; }
+        public virtual  Event? Event { get; set; }
     }
 }

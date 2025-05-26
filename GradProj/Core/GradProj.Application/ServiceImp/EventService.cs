@@ -26,7 +26,7 @@ namespace GradProj.Application.ServiceImp
 
         public  async Task CreateEventAsync(Event Event, LoginDto User) // cerezde id saklamak yerine mail ve sifre ile tekrardan kullanici yi getirebiliriz.
         {
-            var userholder = _userRepository.GetSingleAsync(x=> x.Id==User.Id).FirstOrDefault();
+            var userholder = _userRepository.GetSingleAsync(x=> x.Id==User.UserId).FirstOrDefault();
             if (userholder == null)
             {
                 throw new Exception("There is not such a User");
@@ -36,9 +36,9 @@ namespace GradProj.Application.ServiceImp
                 var userevent = new User_Events
                 {
                     EventId = Event.Id,
-                    UserId = User.Id,
-                    User = User, // ← required property burada set edildi
-                    Event = Event
+                    UserId = User.UserId
+                     // ← required property burada set edildi
+                
                 };
                 await _repository.AddAsync(Event);
                 await _userEventRepository.AddAsync(userevent);
