@@ -11,7 +11,7 @@ namespace GradProj.Application.ServiceImp
 {
     public class GenericService<T> : IService<T> where T : BaseEntity
     {
-        private readonly IRepository<T> _repository;
+        protected readonly IRepository<T> _repository;
         public GenericService(IRepository<T> repository)
         {
             _repository = repository;
