@@ -14,9 +14,9 @@ namespace GradProj.Domain.Entities
 
         // Navigation properties
         [ForeignKey(nameof(UserId))]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
         [ForeignKey(nameof(TaskId))]
-        public virtual ToDo Task { get; set; }
+        public virtual ToDo? Task { get; set; }
     }
 }
