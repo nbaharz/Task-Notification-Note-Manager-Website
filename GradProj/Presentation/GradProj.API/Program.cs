@@ -1,3 +1,4 @@
+using GradProj.Infrastructure.External_Services.Amazon;
 using GradProj.Persistance;
 namespace GradProj.API
 {
@@ -16,8 +17,11 @@ namespace GradProj.API
             // We add this section
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.RegisterAllServices();
+
+            //Amazon isDiscounted method denemesi icin
+            builder.Services.AddScoped<AmazonProductService>();
             //....................
-        
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

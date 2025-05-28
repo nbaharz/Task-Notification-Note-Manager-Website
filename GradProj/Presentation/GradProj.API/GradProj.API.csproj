@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\GradProj.Application\GradProj.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\GradProj.Infrastructure\GradProj.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\GradProj.Persistance\GradProj.Persistance.csproj" />
   </ItemGroup>
 
