@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using GradProj.Application.DTO;
 
 namespace GradProj.Infrastructure.External_Services.Amazon
 {
     using System.Net.Http;
 
-    public class AmazonProductService
+    public class AmazonProductService //bunun icin interface yazmali miyiz
     {
         private readonly HttpClient _client;
         private const string BaseUrl = "https://axesso-axesso-amazon-data-service-v1.p.rapidapi.com";
@@ -23,7 +24,8 @@ namespace GradProj.Infrastructure.External_Services.Amazon
             _client.DefaultRequestHeaders.Add("x-rapidapi-host", RapidApiHost);
         }
 
-        public async Task<string> GetProductDetailsFromUrlAsync(string amazonUrl) //Full urlyi yapistirabiliriz 
+        public async Task<ProductDetailDto> GetProductDetailsAsync(string amazonUrl) //Full urlyi yapistirabiliriz 
+            //productDetailDto olmali
         {
             var encodedUrl = Uri.EscapeDataString(amazonUrl);
             var requestUrl = $"{BaseUrl}/amz/amazon-lookup-product?url={encodedUrl}";
@@ -35,16 +37,25 @@ namespace GradProj.Infrastructure.External_Services.Amazon
             {
                 throw new HttpRequestException($"Axesso API hatası: {(int)response.StatusCode} - {response.StatusCode}\nGelen içerik:\n{content}");
             }
-            
-            return content;
+
+            var parsed = JObject.Parse(content);
+
+            return new ProductDetailDto
+            {
+                ProductTitle = parsed["productTitle"]?.ToString(),
+                Price = parsed["price"]?.Value<decimal?>(),
+                RetailPrice = parsed["retailPrice"]?.Value<decimal?>(),
+                PriceSaving = parsed["priceSaving"]?.ToString(),
+                ProductRating = parsed["productRating"]?.ToString(),
+                Seller = parsed["soldBy"]?.ToString()
+            };
         }
 
         public async Task<object> GetDiscountInfoAsync(string amazonUrl)
         {
-            var json = await GetProductDetailsFromUrlAsync(amazonUrl);
-            var parsed = JObject.Parse(json);
+            var productDto = await GetProductDetailsAsync(amazonUrl);
 
-            var priceSaving = parsed["priceSaving"]?.ToString();
+            var priceSaving = productDto.PriceSaving;
 
             if (!string.IsNullOrEmpty(priceSaving))
                 return priceSaving; 

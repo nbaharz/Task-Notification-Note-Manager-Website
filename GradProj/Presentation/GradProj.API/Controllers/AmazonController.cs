@@ -24,7 +24,7 @@ namespace GradProj.API.Controllers
 
             try
             {
-                var result = await _amazonService.GetProductDetailsFromUrlAsync(url);
+                var result = await _amazonService.GetProductDetailsAsync(url);
                 return Ok(result);
             }
             catch (HttpRequestException ex)
