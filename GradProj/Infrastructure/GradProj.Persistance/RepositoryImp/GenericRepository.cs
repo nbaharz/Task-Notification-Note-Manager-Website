@@ -47,7 +47,7 @@ namespace GradProj.Persistance.RepositoryImp
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int id) // Task<T?> konulabilir
+        public async Task<T?> GetByIdAsync(Guid id) // Task<T?> konulabilir
         {
             return await _dbSet.FindAsync(id);
         }

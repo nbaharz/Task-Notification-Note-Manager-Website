@@ -27,7 +27,7 @@ namespace GradProj.Application.DI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserTaskService,UserTaskService>();
             services.AddScoped<IUserTrackedProductsService, UserTrackedProductsService>();
-
+            services.AddScoped<INoteService, NoteService>();
             // Diğer servis konfigürasyonları burada yapılabilir
         }
     }

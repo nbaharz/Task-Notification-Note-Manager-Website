@@ -32,7 +32,7 @@ namespace GradProj.Application.ServiceImp
             return _repository.GetAllAsync();
         }
 
-        public Task<T?> GetByIdAsync(int id)
+        public Task<T?> GetByIdAsync(Guid id)
         {
             return _repository.GetByIdAsync(id);
         }

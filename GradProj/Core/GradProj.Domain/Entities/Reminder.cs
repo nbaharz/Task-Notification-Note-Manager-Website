@@ -15,7 +15,7 @@ namespace GradProj.Domain.Entities
         [EnumDataType(typeof(ReferenceType))]
         public ReferenceType referenceType { get; set; } // The type of the related entity (e.g., Task, Event) 
 
-        public int ReferenceID { get; set; } // The ID of the related task or event 
+        public Guid ReferenceID { get; set; } // The ID of the related task or event 
         public DateTime ReminderTime { get; set; }
         public string Message { get; set; } = string.Empty;
 

@@ -37,7 +37,6 @@ namespace GradProj.Application.ServiceImp
                 {
                     EventId = Event.Id,
                     UserId = User.UserId
-                     // ← required property burada set edildi
                 
                 };
                 await _repository.AddAsync(Event);

@@ -12,7 +12,7 @@ namespace GradProj.Application.ServiceAbs
         IEnumerable<T> GetSingleAsync(Func<T, bool> predicate);
         Task<IEnumerable<T>> GetAllAsync();
 
-        Task<T?> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(Guid id);
 
         Task AddAsync(T entity);
 

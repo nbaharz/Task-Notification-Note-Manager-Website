@@ -23,7 +23,7 @@ namespace GradProj.Persistance.DI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserTaskRepository, UserTaskRepository>();
             services.AddScoped<IUserTrackedProductsRepository, UserTrackedProductsRepository>();
-
+            services.AddScoped<INoteRepository, NoteRepository>();
         }
     }
 }

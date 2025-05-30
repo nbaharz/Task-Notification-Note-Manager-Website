@@ -23,7 +23,7 @@ namespace GradProj.API.Controllers
             return Ok(users);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             var user = _userService.GetByIdAsync(id);
             if (user == null) return NotFound();

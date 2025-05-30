@@ -1,5 +1,7 @@
 using GradProj.Infrastructure.External_Services.Amazon;
 using GradProj.Persistance;
+using System.Text.Json.Serialization;
+
 namespace GradProj.API
 {
     public class Program
@@ -17,6 +19,11 @@ namespace GradProj.API
             // We add this section
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.RegisterAllServices();
+            builder.Services.AddControllers()
+             .AddJsonOptions(options =>
+             {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+             });
 
             //Amazon isDiscounted method denemesi icin
             builder.Services.AddScoped<AmazonProductService>();

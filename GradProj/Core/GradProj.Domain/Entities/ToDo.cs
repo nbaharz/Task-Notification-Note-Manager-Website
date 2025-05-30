@@ -25,7 +25,7 @@ namespace GradProj.Domain.Entities
         public virtual User? User { get; set; }
     }
 
-    public enum TaskPriority
+    public enum TaskPriority 
     {
         High,
         Medium,
