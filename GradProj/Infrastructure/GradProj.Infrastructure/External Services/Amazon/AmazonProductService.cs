@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using GradProj.Application.DTO;
+using GradProj.Application.ServiceAbs;
 
 namespace GradProj.Infrastructure.External_Services.Amazon
 {
     using System.Net.Http;
 
-    public class AmazonProductService //bunun icin interface yazmali miyiz
+    public class AmazonProductService : IAmazonProductService//bunun icin interface yazmali miyiz
     {
         private readonly HttpClient _client;
         private const string BaseUrl = "https://axesso-axesso-amazon-data-service-v1.p.rapidapi.com";
@@ -42,6 +43,7 @@ namespace GradProj.Infrastructure.External_Services.Amazon
 
             return new ProductDetailDto
             {
+                url = amazonUrl,
                 ProductTitle = parsed["productTitle"]?.ToString(),
                 Price = parsed["price"]?.Value<decimal?>(),
                 RetailPrice = parsed["retailPrice"]?.Value<decimal?>(),

@@ -9,11 +9,11 @@ namespace GradProj.Domain.Entities
 {
     public class TrackedProducts: BaseEntity
     {
-        public string? Name { get; set; }
-        public bool IsDiscounted { get; set; } = false;
-        public Uri? Url { get; set; }
-        public decimal CurrentPrice { get; set; }
-        public DateTime LastCheckedDate { get; set; }
-      
+        public string url { get; set; }
+        public string? ProductTitle { get; set; }
+        public decimal? Price { get; set; }       
+        public string? PriceSaving { get; set; }
+        public string? ProductRating { get; set; }        
+
     }
 }

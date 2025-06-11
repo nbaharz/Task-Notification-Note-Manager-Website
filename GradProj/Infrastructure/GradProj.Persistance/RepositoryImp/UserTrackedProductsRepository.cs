@@ -14,5 +14,10 @@ namespace GradProj.Persistance.RepositoryImp
         public UserTrackedProductsRepository(GradProjDbContext dbContext) : base(dbContext)
         {
         }
+
+        public bool Exists(UserTrackedProducts userTrackedProducts)
+        {
+            return _dbSet.Any(us => us.UserId == userTrackedProducts.UserId && us.Id == userTrackedProducts.Id);
+        }
     }
 }

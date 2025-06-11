@@ -9,5 +9,6 @@ namespace GradProj.Domain.RepositoryAbs
 {
     public interface IUserTrackedProductsRepository: IRepository<UserTrackedProducts>
     {
+        bool Exists(UserTrackedProducts userTrackedProducts);
     }
 }
