@@ -25,6 +25,7 @@ namespace GradProj.API
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
              });
 
+
             //Amazon isDiscounted method denemesi icin
             builder.Services.AddScoped<AmazonProductService>();
             //....................

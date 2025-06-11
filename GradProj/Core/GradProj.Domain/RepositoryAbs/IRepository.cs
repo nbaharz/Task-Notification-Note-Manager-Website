@@ -22,6 +22,7 @@ namespace GradProj.Domain.RepositoryAbs
         void DeleteAsync(Guid id);
 
         //Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate);
+        Task<List<T>> GetListGetWhere(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>>? include = null);
 
     }
 }

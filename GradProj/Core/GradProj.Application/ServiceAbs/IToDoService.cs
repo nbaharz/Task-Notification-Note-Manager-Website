@@ -9,5 +9,8 @@ namespace GradProj.Application.ServiceAbs
 {
     public interface IToDoService : IService<ToDo>
     {
+        List<ToDo> GetSpecifiedUserTasks(Guid userid);
+        //Task<List<ToDo>> EfCoreYukleyerekdeneme(Guid userid);
+        
     }
 }

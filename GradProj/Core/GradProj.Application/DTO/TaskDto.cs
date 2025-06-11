@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace GradProj.Application.DTO
 {
-    public class LoginDto //login 
+    public class TaskDto
     {
+        public Guid UserId { get; set; }      
+        public string Item { get; set; } = string.Empty;
 
-        public Guid UserId { get; set; }
-        public required string Email { get; set; }    
-        public required string  Password { get; set; }
+        [EnumDataType(typeof(TaskPriority))]
+        public TaskPriority Priority { get; set; }
 
-        public string Role { get; set; } = "User";
-
+        
     }
+    
 }

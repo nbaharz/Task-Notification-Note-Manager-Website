@@ -48,5 +48,10 @@ namespace GradProj.Application.ServiceImp
 
 
         }
+
+        public List<Event> GetSpecifiedUserEvents(Guid userid)
+        {
+            return _repository.GetSingleAsync(u => u.UserId == userid).ToList();
+        }
     }
 }
