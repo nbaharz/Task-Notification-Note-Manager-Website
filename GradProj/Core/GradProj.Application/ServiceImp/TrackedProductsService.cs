@@ -25,16 +25,16 @@ namespace GradProj.Application.ServiceImp
        public async Task<ProductDetailDto> GetProductFromAmazon(string amazonurl, Guid userid) {
 
             var data = await _amazonProductService.GetProductDetailsAsync(amazonurl);
-            var checkproduct = _trackedProductsRepository.GetSingleAsync(x=>x.url == amazonurl).FirstOrDefault();
-            if (checkproduct != null)
+            var checkedproduct = _trackedProductsRepository.GetSingleAsync(x=>x.url == amazonurl).FirstOrDefault();
+            if (checkedproduct != null)
             {
-                _trackedProductsRepository.UpdateAsync(checkproduct);
+                _trackedProductsRepository.UpdateAsync(checkedproduct);
 
             }
             else
             {
 
-                var convert = new TrackedProducts
+                 checkedproduct = new TrackedProducts
                 {
                     url = amazonurl,
                     ProductTitle = data.ProductTitle,
@@ -43,13 +43,15 @@ namespace GradProj.Application.ServiceImp
                     ProductRating = data.ProductRating,
 
                 };
-                await _trackedProductsRepository.AddAsync(convert);
+                 _trackedProductsRepository.AddAsync(checkedproduct);
+                
 
             }
+           
             var isExistsAtUserProduct = new UserTrackedProducts
             {
                 UserId = userid,
-                TrackedProductId = checkproduct.Id
+                TrackedProductId = checkedproduct.Id
             };
             if (!_userTrackedProductsRepository.Exists(isExistsAtUserProduct))
             {
