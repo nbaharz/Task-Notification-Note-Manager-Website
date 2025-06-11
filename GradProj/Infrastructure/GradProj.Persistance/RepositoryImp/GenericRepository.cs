@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using GradProj.Domain.Entities;
@@ -50,6 +51,16 @@ namespace GradProj.Persistance.RepositoryImp
         public async Task<T?> GetByIdAsync(Guid id) // Task<T?> konulabilir
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        public  async Task<List<T>> GetListGetWhere(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>>? include = null)
+        {
+            IQueryable<T> query = _dbSet.Where(predicate);
+
+            if (include != null)
+                query = include(query);
+
+            return await query.ToListAsync();
         }
 
         public IEnumerable<T> GetSingleAsync(Func<T, bool> predicate)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using GradProj.Application.ServiceAbs;
@@ -35,6 +36,11 @@ namespace GradProj.Application.ServiceImp
         public Task<T?> GetByIdAsync(Guid id)
         {
             return _repository.GetByIdAsync(id);
+        }
+
+        public async Task<List<T>> GetListGetWhere(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>>? include = null)
+        {
+           return  await _repository.GetListGetWhere(predicate, include);
         }
 
         public IEnumerable<T> GetSingleAsync(Func<T, bool> predicate)

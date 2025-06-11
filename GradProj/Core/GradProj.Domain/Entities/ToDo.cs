@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GradProj.Domain.Entities
 {
+    [Table("Task")]
     public class ToDo:BaseEntity
     {
         [Required]
