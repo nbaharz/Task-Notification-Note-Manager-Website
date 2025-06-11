@@ -8,6 +8,7 @@ namespace GradProj.Application.DTO
 {
     public class ProductDetailDto
     {
+        public string url { get; set; }
         public string? ProductTitle { get; set; }
         public decimal? Price { get; set; }
         public decimal? RetailPrice { get; set; }

@@ -2,29 +2,32 @@
 using Microsoft.AspNetCore.Mvc;
 using GradProj.Infrastructure.External_Services.Amazon;
 using System.Text.RegularExpressions;
+using GradProj.Domain.RepositoryAbs;
+using GradProj.Application.ServiceAbs;
 
 namespace GradProj.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class AmazonController : ControllerBase
+    public class TrackedProductController : ControllerBase
     {
-        private readonly AmazonProductService _amazonService;
+        private readonly ITrackedProductsService _trackedProductsService;
 
-        public AmazonController(AmazonProductService amazonService)
+        public TrackedProductController(ITrackedProductsService trackedProductsService)
         {
-            _amazonService = amazonService;
+            _trackedProductsService= trackedProductsService;
         }
 
         [HttpGet("lookup")]
-        public async Task<IActionResult> GetProductDetails(string url)
+        public async Task<IActionResult> GetProductDetails(string url, Guid userid)
         {
             if (string.IsNullOrWhiteSpace(url))
                 return BadRequest("URL boş olamaz.");
 
             try
             {
-                var result = await _amazonService.GetProductDetailsAsync(url);
+                var result = await _trackedProductsService.GetProductFromAmazon(url, userid);
+                
                 return Ok(result);
             }
             catch (HttpRequestException ex)
@@ -41,7 +44,7 @@ namespace GradProj.API.Controllers
 
             try
             {
-                var result = await _amazonService.GetDiscountInfoAsync(url);
+                var result = await _trackedProductsService.GetDiscountInfoAsync(url);
                 return Ok(result);
             }
             catch (HttpRequestException ex)
