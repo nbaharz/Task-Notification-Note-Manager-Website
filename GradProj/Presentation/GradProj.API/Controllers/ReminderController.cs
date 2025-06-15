@@ -1,14 +1,13 @@
 ﻿using GradProj.Application.ServiceAbs;
-using GradProj.Application.ServiceImp;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GradProj.Application.DTO;
+using System;
+using System.Threading.Tasks;
 
 namespace GradProj.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-
     public class ReminderController : ControllerBase
     {
         private readonly IReminderService _reminderService;
@@ -17,7 +16,7 @@ namespace GradProj.API.Controllers
         {
             _reminderService = reminderService;
         }
-       
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -29,20 +28,20 @@ namespace GradProj.API.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             var reminder = await _reminderService.GetByIdAsync(id);
+            if (reminder == null)
+                return NotFound();
+
             return Ok(reminder);
         }
 
         [HttpPost]
-        //SetReminder denemesi
-        public IActionResult SetTaskReminder(ReminderTaskDto dto) 
-            //async Task<IActionResult> neye gore yapariz: database islemi varsa olabilir
+        public async Task<IActionResult> SetReminder([FromBody] ReminderBaseDto dto)
         {
-            var taskReminder = _reminderService.CreateTaskReminderAsync(dto);
-            if (taskReminder == null) 
-            { 
-                return NotFound();
-            }
-            return Ok(taskReminder);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _reminderService.CreateReminderAsync(dto);
+            return Ok(new { message = "Reminder created successfully." });
         }
     }
 }

@@ -13,8 +13,9 @@ namespace GradProj.Application.ServiceAbs
         //public Task CreateTaskReminderAsync(Guid taskId, DateTime reminderTime, Guid userId, string message);
 
         // public Task CreateEventReminderAsync(Guid taskId, DateTime reminderTime, Guid userId, string message);
-        public Task CreateTaskReminderAsync(ReminderTaskDto dto);
-        public Task CreateEventReminderAsync(ReminderEventDto dto);
+        //public Task CreateTaskReminderAsync(ReminderTaskDto dto);
+        //public Task CreateEventReminderAsync(ReminderEventDto dto);
+        public Task CreateReminderAsync(ReminderBaseDto dto);
 
         
 

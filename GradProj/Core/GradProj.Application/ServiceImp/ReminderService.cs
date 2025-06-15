@@ -1,53 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GradProj.Application.DTO;
+﻿using GradProj.Application.DTO;
 using GradProj.Application.ServiceAbs;
 using GradProj.Domain.Entities;
 using GradProj.Domain.RepositoryAbs;
+using System.Threading.Tasks;
 
 namespace GradProj.Application.ServiceImp
 {
-    public class ReminderService : GenericService<Reminder>, IReminderService 
+    public class ReminderService : GenericService<Reminder>, IReminderService
     {
         private readonly IReminderRepository _reminderRepository;
-        public ReminderService(IReminderRepository reminderrepository) : base(reminderrepository)
+
+        public ReminderService(IReminderRepository reminderRepository) : base(reminderRepository)
         {
-            _reminderRepository = reminderrepository;
+            _reminderRepository = reminderRepository;
         }
 
-        //reminder service denemeleri -b
-    
-        public async Task CreateTaskReminderAsync(ReminderTaskDto dto)
-        {
-            var reminder = new Reminder
-            {
-                UserId = dto.UserId,
-                ReferenceID = dto.TaskId,
-                ReminderTime = dto.ReminderTime,
-                Message = dto.Message,
-                referenceType = ReferenceType.Task
-            };
-
-            await _reminderRepository.AddAsync(reminder);
-        }
-
-        public async Task CreateEventReminderAsync(ReminderEventDto dto)
+        public async Task CreateReminderAsync(ReminderBaseDto dto)
         {
             var reminder = new Reminder
             {
                 UserId = dto.UserId,
-                ReferenceID = dto.EventId,
+                ReferenceID = dto.ReferenceId,
                 ReminderTime = dto.ReminderTime,
                 Message = dto.Message,
-                referenceType = ReferenceType.Event
+                referenceType = dto.ReferenceType
             };
 
             await _reminderRepository.AddAsync(reminder);
         }
+      
 
-       
+
     }
 }
