@@ -25,9 +25,9 @@ namespace GradProj.API.Controllers
             return Ok(events);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var event1 = _eventService.GetByIdAsync(id);
+            var event1 = await _eventService.GetByIdAsync(id);
             if (event1 == null) return NotFound();
             return Ok(event1);
         }
@@ -45,15 +45,9 @@ namespace GradProj.API.Controllers
         }
         [HttpPut]
         public IActionResult CreateEvent(EventDto dto) {
-            var ALLAHBELANIVERSIN = new Event
-            {
-                UserId = dto.UserId,
-                Title = dto.Title,
-                Description = dto.Description,
-                EventDate = dto.EventDate,
-            };
-            _eventService.AddAsync(ALLAHBELANIVERSIN);
-            return Ok(ALLAHBELANIVERSIN);
+           
+            _eventService.CreateEventAsync(dto);
+            return Ok(dto);
            
 
        }

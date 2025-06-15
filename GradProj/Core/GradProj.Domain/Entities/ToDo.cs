@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GradProj.Domain.Entities
 {
     [Table("Task")]
-    public class ToDo:BaseEntity
+    public class ToDo:BaseEntity 
     {
         [Required]
         public Guid UserId { get; set; }
@@ -24,6 +24,7 @@ namespace GradProj.Domain.Entities
 
         [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
+        public ReferenceType ReferenceType => ReferenceType.Event;
     }
 
     public enum TaskPriority 

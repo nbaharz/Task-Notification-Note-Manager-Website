@@ -43,7 +43,7 @@ namespace GradProj.Application.ServiceImp
                     ProductRating = data.ProductRating,
 
                 };
-                 _trackedProductsRepository.AddAsync(checkedproduct);
+                 await _trackedProductsRepository.AddAsync(checkedproduct);
                 
 
             }
@@ -55,7 +55,7 @@ namespace GradProj.Application.ServiceImp
             };
             if (!_userTrackedProductsRepository.Exists(isExistsAtUserProduct))
             {
-                _userTrackedProductsRepository.AddAsync(isExistsAtUserProduct);
+                await _userTrackedProductsRepository.AddAsync(isExistsAtUserProduct);
             }
 
 
