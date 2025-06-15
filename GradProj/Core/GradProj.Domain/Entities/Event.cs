@@ -16,5 +16,7 @@ namespace GradProj.Domain.Entities
 
         [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
+
+        public ReferenceType ReferenceType =>ReferenceType.Event;
     }
 }

@@ -24,9 +24,9 @@ namespace GradProj.Application.ServiceImp
             _userRepository = userRepository;
             _usertaskRepository = usertaskRepository;
         }
-        public async Task CreateTaskAsync(ToDo task, LoginDto User) // cerezde id saklamak yerine mail ve sifre ile tekrardan kullanici yi getirebiliriz.
+        public async Task CreateTaskAsync(TaskDto taskdto) // cerezde id saklamak yerine mail ve sifre ile tekrardan kullanici yi getirebiliriz.
         {
-            var userholder = _userRepository.GetSingleAsync(x => x.Id == User.UserId).FirstOrDefault();
+            var userholder =  _userRepository.GetSingleAsync(x => x.Id == taskdto.UserId).FirstOrDefault();
             if (userholder == null)
             {
                 throw new Exception("There is not such a User");
@@ -34,13 +34,23 @@ namespace GradProj.Application.ServiceImp
             else
             {
 
-                var userTask = new User_Tasks 
+              
+                var task = new ToDo
                 {
-                    TaskId = task.Id,
-                    UserId = User.UserId,
-                  
+                    UserId = taskdto.UserId,
+                    Item = taskdto.Item,
+                    Priority = taskdto.Priority,
+
                 };
+             
                 await _repository.AddAsync(task);
+                var userTask = new User_Tasks
+                {
+
+                    UserId = userholder.Id,
+                    TaskId = task.Id,
+
+                };
                 await _usertaskRepository.AddAsync(userTask);
 
             }

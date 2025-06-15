@@ -26,9 +26,9 @@ namespace GradProj.API.Controllers
             return Ok(toDos);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public  async Task<IActionResult> GetById(Guid id)
         {
-            var event1 = _toDoService.GetByIdAsync(id);
+            var event1 = await _toDoService.GetByIdAsync(id);
             if (event1 == null) return NotFound();
             return Ok(event1);
         }
@@ -54,14 +54,9 @@ namespace GradProj.API.Controllers
         [HttpPut]
         public IActionResult CreateTask(TaskDto taskdto)
         {
-            var toTask = new ToDo
-            {
-                UserId = taskdto.UserId,
-                Item = taskdto.Item,
-                Priority = taskdto.Priority,
-            };
-            _toDoService.AddAsync(toTask);
-            return Ok(toTask);
+        
+            _toDoService.CreateTaskAsync(taskdto);
+            return Ok(taskdto);
 
         }
 
