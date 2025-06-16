@@ -9,5 +9,8 @@ namespace GradProj.Application.ServiceAbs
 {
     public interface INotificationService : IService<Notification>
     {
+        Task CreateAsync(Notification notification); //dto?
+        Task<IEnumerable<Notification>> GetNotificationsByUserIdAsync(Guid userId);
+        Task MarkAsReadAsync(Guid notificationId);
     }
 }

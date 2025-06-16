@@ -18,12 +18,14 @@ namespace GradProj.Domain.Entities
         public Guid ReferenceID { get; set; } // The ID of the related task or event 
         public DateTime ReminderTime { get; set; }
         public string Message { get; set; } = string.Empty;
+        public bool isReminded { get; set; } = false;
 
         //[ForeignKey(nameof(ReferenceID))]
         //...Burada hem task olabilir hem event, nasil FK tanimlayacagiz?
 
         [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
+        
 
 
 

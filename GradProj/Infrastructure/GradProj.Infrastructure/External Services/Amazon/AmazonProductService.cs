@@ -53,16 +53,18 @@ namespace GradProj.Infrastructure.External_Services.Amazon
             };
         }
 
-        public async Task<object> GetDiscountInfoAsync(string amazonUrl)
+        public async Task<DiscountInfoDto> GetDiscountInfoAsync(string amazonUrl)
         {
             var productDto = await GetProductDetailsAsync(amazonUrl);
-
             var priceSaving = productDto.PriceSaving;
 
-            if (!string.IsNullOrEmpty(priceSaving))
-                return priceSaving; 
+            var result = new DiscountInfoDto
+            {
+                IsDiscounted = !string.IsNullOrEmpty(priceSaving),
+                PriceSavingValue = priceSaving
+            };
 
-            return false;
+            return result;
         }
     }
 

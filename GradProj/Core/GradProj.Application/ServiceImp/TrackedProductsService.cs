@@ -33,19 +33,18 @@ namespace GradProj.Application.ServiceImp
             }
             else
             {
-
                  checkedproduct = new TrackedProducts
                 {
                     url = amazonurl,
                     ProductTitle = data.ProductTitle,
-                    Price = data.Price,
+                    CurrentPrice = data.Price,
                     PriceSaving = data.PriceSaving,
                     ProductRating = data.ProductRating,
+                    LastFetchTime= data.LastFetchTime,
 
                 };
                  await _trackedProductsRepository.AddAsync(checkedproduct);
                 
-
             }
            
             var isExistsAtUserProduct = new UserTrackedProducts

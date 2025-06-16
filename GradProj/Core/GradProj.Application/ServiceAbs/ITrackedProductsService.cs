@@ -12,5 +12,6 @@ namespace GradProj.Application.ServiceAbs
     {
         Task<ProductDetailDto> GetProductFromAmazon(string amazonurl,Guid userid);
         Task<object> GetDiscountInfoAsync(string amazonUrl);
+  
     }
 }

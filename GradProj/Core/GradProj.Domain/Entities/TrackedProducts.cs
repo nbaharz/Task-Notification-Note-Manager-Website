@@ -11,9 +11,11 @@ namespace GradProj.Domain.Entities
     {
         public string url { get; set; }
         public string? ProductTitle { get; set; }
-        public decimal? Price { get; set; }       
+        public decimal? CurrentPrice { get; set; }       
         public string? PriceSaving { get; set; }
         public string? ProductRating { get; set; }        
 
+        public DateTime LastFetchTime   { get; set; }
+        //lastfetchtime nasıl updatelenecek
     }
 }

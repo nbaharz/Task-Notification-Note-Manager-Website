@@ -14,6 +14,7 @@ namespace GradProj.Domain.Entities
         [Required]
         public Guid UserId { get; set; }
 
+        //title ekle
         [Required]
         public string Item { get; set; } = string.Empty;
 

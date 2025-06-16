@@ -1,4 +1,5 @@
 ﻿using GradProj.Application.DTO;
+using GradProj.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace GradProj.Application.ServiceAbs
     public interface IAmazonProductService
     {
         Task<ProductDetailDto> GetProductDetailsAsync(string amazonUrl);
-        Task<object> GetDiscountInfoAsync(string amazonUrl);
+        Task<DiscountInfoDto> GetDiscountInfoAsync(string amazonUrl); //dto koy
     }
 }

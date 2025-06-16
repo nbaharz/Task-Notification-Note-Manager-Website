@@ -1,5 +1,11 @@
+using GradProj.Application;
+using GradProj.Application.ServiceAbs;
+using GradProj.Application.ServiceImp;
+using GradProj.Infrastructure.Background_Jobs;
+using GradProj.Infrastructure.Configurations;
 using GradProj.Infrastructure.External_Services.Amazon;
 using GradProj.Persistance;
+using Hangfire;
 using System.Text.Json.Serialization;
 
 namespace GradProj.API
@@ -25,12 +31,29 @@ namespace GradProj.API
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
              });
 
+            //Hangfire config we add this
+            builder.Services.AddHangfireWithMySql(builder.Configuration);
 
+            // ---- Servis ve job kayýtlarý (bunu baska dosyaya alabiliriz) ----
+            builder.Services.AddScoped<ReminderJob>();
+            builder.Services.AddScoped<DiscountCheckJob>();
+            //-------------------------------
+           
             //Amazon isDiscounted method denemesi icin
             builder.Services.AddScoped<AmazonProductService>();
             //....................
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
+
+            JobScheduler.ConfigureJobs(app.Services);
+
+            // Hangfire dashboard (opsiyonel)
+            app.UseHangfireDashboard();
+            app.MapControllers();
+            //------
+
+            app.MapHub<NotificationHub>("/hubs/notification");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -15,5 +15,6 @@ namespace GradProj.Application.DTO
         public string? PriceSaving { get; set; }
         public string? ProductRating { get; set; }
         public string? Seller { get; set; }
+        public DateTime LastFetchTime  { get; set; }
     }
 }

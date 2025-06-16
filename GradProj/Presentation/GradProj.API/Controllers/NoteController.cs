@@ -3,7 +3,6 @@ using GradProj.Application.ServiceAbs;
 using GradProj.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using GradProj.Application.DTO;
 
 namespace GradProj.API.Controllers
 {

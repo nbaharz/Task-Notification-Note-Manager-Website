@@ -20,6 +20,7 @@ namespace GradProj.Persistance
 
             services.AddDbContext<GradProjDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
         }
     }
 }

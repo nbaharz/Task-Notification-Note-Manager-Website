@@ -17,7 +17,7 @@ namespace GradProj.API.Controllers
         {
             _trackedProductsService= trackedProductsService;
         }
-
+ 
         [HttpGet("lookup")]
         public async Task<IActionResult> GetProductDetails(string url, Guid userid)
         {

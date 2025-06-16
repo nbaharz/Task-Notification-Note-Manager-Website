@@ -8,6 +8,7 @@ namespace GradProj.Application.ServiceImp
 {
     public class ReminderService : GenericService<Reminder>, IReminderService
     {
+        //reminder hatirlatildiginda sil.
         private readonly IReminderRepository _reminderRepository;
 
         public ReminderService(IReminderRepository reminderRepository) : base(reminderRepository)
