@@ -1,4 +1,5 @@
 using GradProj.Application;
+using GradProj.Application.JwtToken;
 using GradProj.Application.ServiceAbs;
 using GradProj.Application.ServiceImp;
 using GradProj.Infrastructure.Background_Jobs;
@@ -6,7 +7,13 @@ using GradProj.Infrastructure.Configurations;
 using GradProj.Infrastructure.External_Services.Amazon;
 using GradProj.Persistance;
 using Hangfire;
+using System.Security.Cryptography;
 using System.Text.Json.Serialization;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+
+
 
 namespace GradProj.API
 {
@@ -41,8 +48,38 @@ namespace GradProj.API
            
             //Amazon isDiscounted method denemesi icin
             builder.Services.AddScoped<AmazonProductService>();
+           
             //....................
             builder.Services.AddSignalR();
+            // Jwt Configirasyon
+            var jwtOptions = builder.Configuration
+    .GetSection("Jwt")
+    .Get<JwtOptions>();
+            var keyBytes = RandomNumberGenerator.GetBytes(32);
+            jwtOptions.Key = new SymmetricSecurityKey(keyBytes);
+            builder.Services.AddScoped<IGenerateToken, GenerateToken>();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtOptions.Issuer,
+            ValidAudience = jwtOptions.Audience,
+            IssuerSigningKey = jwtOptions.Key
+        };
+    });
+            builder.Services.Configure<JwtOptions>(options =>
+            {
+                options.Issuer = jwtOptions.Issuer;
+                options.Audience = jwtOptions.Audience;
+                options.ExpireMinutes = jwtOptions.ExpireMinutes;
+                options.Key = jwtOptions.Key;
+            });
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
@@ -63,6 +100,7 @@ namespace GradProj.API
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

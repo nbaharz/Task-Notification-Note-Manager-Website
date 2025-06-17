@@ -42,7 +42,7 @@ namespace GradProj.API.Controllers
             return NoContent();
         }
         [HttpPost]
-        public IActionResult LoginUser(string email, string password) 
+        public IActionResult LoginUser(string email, string password ) 
         {
             var check = _userService.AuthUser(email,password);
             if (check == null) {

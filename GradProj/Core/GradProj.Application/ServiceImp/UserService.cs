@@ -8,20 +8,24 @@ using GradProj.Application.DTO;
 using GradProj.Application.ServiceAbs;
 using GradProj.Domain.Entities;
 using GradProj.Domain.RepositoryAbs;
+using GradProj.Application.JwtToken;
 
 namespace GradProj.Application.ServiceImp
 {
     public class UserService : GenericService<User>, IUserService
     {
         protected readonly IUserRepository _userRepository; //bu amk reposu servis entitisinin tipinde olmak zorunda
-        public UserService(IUserRepository repository) : base(repository)
+        private readonly IGenerateToken _tokenGenerator;
+        public UserService(IUserRepository repository, IGenerateToken generateToken) : base(repository)
         {
             _userRepository = repository;
+            _tokenGenerator = generateToken;
         }
 
         public LoginDto AuthUser(string email, string password)
         {
             var checkuser = _repository.GetSingleAsync(x=> x.Email == email && x.Password == password).FirstOrDefault();
+
             if (checkuser==null)
             {
                 throw new Exception("There is not such a User");
@@ -32,6 +36,7 @@ namespace GradProj.Application.ServiceImp
                 UserId = checkuser.Id,
                 Email = checkuser.Email,
                 Password = checkuser.Password,
+                Token = _tokenGenerator.GenerateTokenMethod(checkuser),
             };
         }
 
