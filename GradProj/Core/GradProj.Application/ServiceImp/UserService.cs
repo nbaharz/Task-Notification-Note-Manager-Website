@@ -1,28 +1,34 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using GradProj.Application.DTO;
 using GradProj.Application.ServiceAbs;
 using GradProj.Domain.Entities;
 using GradProj.Domain.RepositoryAbs;
-using GradProj.Application.JwtToken;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace GradProj.Application.ServiceImp
 {
     public class UserService : GenericService<User>, IUserService
     {
         protected readonly IUserRepository _userRepository; //bu amk reposu servis entitisinin tipinde olmak zorunda
-        private readonly IGenerateToken _tokenGenerator;
-        public UserService(IUserRepository repository, IGenerateToken generateToken) : base(repository)
+        private readonly IConfiguration _config;
+
+        public UserService(IUserRepository repository, IConfiguration configuration) : base(repository)
         {
             _userRepository = repository;
-            _tokenGenerator = generateToken;
+            _config = configuration;    
+
         }
 
-        public LoginDto AuthUser(string email, string password)
+        public async  Task<string?> AuthUser(string email, string password)
         {
             var checkuser = _repository.GetSingleAsync(x=> x.Email == email && x.Password == password).FirstOrDefault();
 
@@ -31,13 +37,26 @@ namespace GradProj.Application.ServiceImp
                 throw new Exception("There is not such a User");
                 
             }
-            return new LoginDto
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                UserId = checkuser.Id,
-                Email = checkuser.Email,
-                Password = checkuser.Password,
-                Token = _tokenGenerator.GenerateTokenMethod(checkuser),
+                Subject = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Email, checkuser.Email),
+                new Claim(ClaimTypes.NameIdentifier, checkuser.Id.ToString())
+            }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                Issuer = _config["Jwt:Issuer"],
+                Audience = _config["Jwt:Audience"],
+                SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+
+
         }
 
         public RegisterDto RegisterUser(RegisterDto newuser)
