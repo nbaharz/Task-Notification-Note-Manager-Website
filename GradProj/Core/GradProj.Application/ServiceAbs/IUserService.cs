@@ -11,7 +11,7 @@ namespace GradProj.Application.ServiceAbs
     public interface IUserService : IService<User>
     {
         RegisterDto RegisterUser(RegisterDto newuser);
-        LoginDto AuthUser( string email, string password);
+        Task<string?> AuthUser( string email, string password);
 
 
     }

@@ -42,13 +42,13 @@ namespace GradProj.API.Controllers
             return NoContent();
         }
         [HttpPost]
-        public IActionResult LoginUser(string email, string password ) 
+        public async  Task<IActionResult> LoginUser([FromBody] LoginDto loginDto) 
         {
-            var check = _userService.AuthUser(email,password);
-            if (check == null) {
+            var token= await _userService.AuthUser(loginDto.Email, loginDto.Password);
+            if (token == null) {
                 return Unauthorized(new { message = "Geçersiz e-posta veya şifre." });
             }
-            return Ok(check);           
+            return Ok(new {token});           
 
         }
         [HttpPost]

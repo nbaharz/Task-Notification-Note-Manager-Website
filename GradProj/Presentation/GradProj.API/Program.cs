@@ -1,5 +1,5 @@
 using GradProj.Application;
-using GradProj.Application.JwtToken;
+
 using GradProj.Application.ServiceAbs;
 using GradProj.Application.ServiceImp;
 using GradProj.Infrastructure.Background_Jobs;
@@ -12,6 +12,7 @@ using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using System.Text;
 
 
 
@@ -53,20 +54,8 @@ namespace GradProj.API
             //....................
             builder.Services.AddSignalR();
             // Jwt Configirasyon
-
-
-            var jwtSection = builder.Configuration.GetSection("Jwt");
-            var jwtOptions = jwtSection.Get<JwtOptions>();
-            var keyString = jwtSection["Key"];
-            jwtOptions.Key = new SymmetricSecurityKey(Convert.FromBase64String(keyString));
-
-
-
-
-
-            builder.Services.AddScoped<IGenerateToken, GenerateToken>();
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+            builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -74,25 +63,22 @@ namespace GradProj.API
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtOptions.Issuer,
-            ValidAudience = jwtOptions.Audience,
-            IssuerSigningKey = jwtOptions.Key
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-            builder.Services.Configure<JwtOptions>(options =>
-            {
-                options.Issuer = jwtOptions.Issuer;
-                options.Audience = jwtOptions.Audience;
-                options.ExpireMinutes = jwtOptions.ExpireMinutes;
-                options.Key = jwtOptions.Key;
-            });
+
             builder.Services.AddAuthorization();
+
+
             /// CORS Config
-             builder.Services.AddCors(options =>
+            builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontend", policy =>
                 {
-                    policy.WithOrigins("http://localhost:3000") // Next.js development adresi
+                    policy.AllowAnyOrigin() // Next.js development adresi
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
@@ -118,10 +104,12 @@ namespace GradProj.API
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.UseAuthentication();
 
-            
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+
+
 
 
             app.MapControllers();
