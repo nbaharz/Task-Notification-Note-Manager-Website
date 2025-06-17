@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 
 
@@ -52,11 +53,17 @@ namespace GradProj.API
             //....................
             builder.Services.AddSignalR();
             // Jwt Configirasyon
-            var jwtOptions = builder.Configuration
-    .GetSection("Jwt")
-    .Get<JwtOptions>();
-            var keyBytes = RandomNumberGenerator.GetBytes(32);
-            jwtOptions.Key = new SymmetricSecurityKey(keyBytes);
+
+
+            var jwtSection = builder.Configuration.GetSection("Jwt");
+            var jwtOptions = jwtSection.Get<JwtOptions>();
+            var keyString = jwtSection["Key"];
+            jwtOptions.Key = new SymmetricSecurityKey(Convert.FromBase64String(keyString));
+
+
+
+
+
             builder.Services.AddScoped<IGenerateToken, GenerateToken>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -80,8 +87,19 @@ namespace GradProj.API
                 options.Key = jwtOptions.Key;
             });
             builder.Services.AddAuthorization();
+            /// CORS Config
+             builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000") // Next.js development adresi
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
             var app = builder.Build();
+            app.UseCors("AllowFrontend");
 
             JobScheduler.ConfigureJobs(app.Services);
 
@@ -100,9 +118,10 @@ namespace GradProj.API
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthorization();
             app.UseAuthentication();
 
-            app.UseAuthorization();
+            
 
 
             app.MapControllers();
