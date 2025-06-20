@@ -10,7 +10,7 @@ namespace GradProj.Application.ServiceAbs
 {
     public interface IEventService : IService<Event>
     {
-        Task CreateEventAsync(EventDto eventDto);
+        Task CreateEventAsync(EventDto eventDto, Guid id);
         List<Event> GetSpecifiedUserEvents(Guid userid);
     }
 }

@@ -10,7 +10,7 @@ namespace GradProj.Application.DTO
 {
     public class TaskDto
     {
-        public Guid UserId { get; set; }      
+        
         public string Item { get; set; } = string.Empty;
 
         [EnumDataType(typeof(TaskPriority))]

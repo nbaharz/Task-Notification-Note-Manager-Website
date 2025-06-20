@@ -1,8 +1,10 @@
 ﻿using GradProj.Application.DTO;
 using GradProj.Application.ServiceAbs;
 using GradProj.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GradProj.API.Controllers
 {
@@ -41,14 +43,17 @@ namespace GradProj.API.Controllers
             _userService.DeleteAsync(id);
             return NoContent();
         }
+        
         [HttpPost]
-        public async  Task<IActionResult> LoginUser([FromBody] LoginDto loginDto) 
+        public   IActionResult LoginUser([FromBody] LoginDto loginDto) 
         {
-            var token= await _userService.AuthUser(loginDto.Email, loginDto.Password);
+            var token=   _userService.AuthUser(loginDto.Email, loginDto.Password);
+            
+
             if (token == null) {
                 return Unauthorized(new { message = "Geçersiz e-posta veya şifre." });
             }
-            return Ok(new {token});           
+            return Ok(new {token });           
 
         }
         [HttpPost]

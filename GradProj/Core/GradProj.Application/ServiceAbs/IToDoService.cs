@@ -11,7 +11,7 @@ namespace GradProj.Application.ServiceAbs
     public interface IToDoService : IService<ToDo>
     {
         List<ToDo> GetSpecifiedUserTasks(Guid userid);
-        Task CreateTaskAsync(TaskDto taskdto);
+        Task CreateTaskAsync(TaskDto taskdto,Guid id);
         //Task<List<ToDo>> EfCoreYukleyerekdeneme(Guid userid);
 
     }

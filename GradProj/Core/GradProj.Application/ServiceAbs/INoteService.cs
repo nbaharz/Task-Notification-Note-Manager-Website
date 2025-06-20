@@ -9,5 +9,6 @@ namespace GradProj.Application.ServiceAbs
 {
     public interface INoteService: IService<Note>
     {
+        List<Note> GetUserNotes(Guid userid);
     }
 }

@@ -4,6 +4,8 @@ using GradProj.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GradProj.Application.DTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GradProj.API.Controllers
 {
@@ -43,14 +45,25 @@ namespace GradProj.API.Controllers
             _eventService.DeleteAsync(id);
             return NoContent();
         }
-        [HttpPut]
-        public IActionResult CreateEvent(EventDto dto) {
-           
-            _eventService.CreateEventAsync(dto);
+        [Authorize]
+        [HttpPost]
+        public IActionResult CreateEvent([FromBody] EventDto dto) {
+            
+           var id = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            _eventService.CreateEventAsync(dto, id);
             return Ok(dto);
            
 
        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult GetUserEvents()
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var tasks = _eventService.GetSpecifiedUserEvents(userId);
+            if (tasks == null) return NotFound();
+            return Ok(tasks);
+        }
 
     }
 }

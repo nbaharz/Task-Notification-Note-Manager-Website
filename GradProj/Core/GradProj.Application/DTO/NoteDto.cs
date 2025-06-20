@@ -8,7 +8,7 @@ namespace GradProj.Application.DTO
 {
     public class NoteDto
     {
-        public Guid UserId { get; set; }
+  
         public string? Title { get; set; }
         public string? Details { get; set; }
     }
