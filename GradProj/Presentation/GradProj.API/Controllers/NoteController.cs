@@ -1,12 +1,14 @@
 ﻿using GradProj.Application.DTO;
 using GradProj.Application.ServiceAbs;
 using GradProj.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GradProj.API.Controllers
 {
-    
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class NoteController : ControllerBase
@@ -42,22 +44,33 @@ namespace GradProj.API.Controllers
             _noteService.DeleteAsync(id);
             return NoContent();
         }
+        [Authorize]
         [HttpPut]
         public IActionResult CreateNote(NoteDto dto)
         {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var convertnote = new Note
             {
-                UserId = dto.UserId,
+                UserId = userId,
                 Title = dto.Title,
                 Details = dto.Details,
 
 
-              
+
             };
             _noteService.AddAsync(convertnote);
             return Ok(convertnote);
 
 
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult GetUserNotes()
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var notes = _noteService.GetUserNotes(userId);
+            if (notes == null) return NotFound();
+            return Ok(notes);
         }
     }
 }

@@ -5,6 +5,8 @@ using GradProj.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GradProj.API.Controllers
 {
@@ -44,18 +46,21 @@ namespace GradProj.API.Controllers
             _toDoService.DeleteAsync(id);
             return NoContent();
         }
-        [HttpGet("{id}")]
-        public IActionResult GetUserTasks(Guid id)
+        [Authorize]
+        [HttpPost]
+        public IActionResult GetUserTasks()
         {
-            var tasks = _toDoService.GetSpecifiedUserTasks(id);
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var tasks = _toDoService.GetSpecifiedUserTasks(userId);
             if (tasks == null) return NotFound();
             return Ok(tasks);
         }
-        [HttpPut]
-        public IActionResult CreateTask(TaskDto taskdto)
+        [Authorize]
+        [HttpPost]
+        public IActionResult CreateTask([FromBody] TaskDto taskdto)
         {
-        
-            _toDoService.CreateTaskAsync(taskdto);
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            _toDoService.CreateTaskAsync(taskdto, userId);
             return Ok(taskdto);
 
         }

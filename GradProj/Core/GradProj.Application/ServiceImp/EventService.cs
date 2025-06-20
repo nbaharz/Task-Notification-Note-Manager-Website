@@ -24,10 +24,10 @@ namespace GradProj.Application.ServiceImp
             _userEventRepository = userEventRepository;
         }
 
-        public  async Task CreateEventAsync(EventDto eventDto) // cerezde id saklamak yerine mail ve sifre ile tekrardan kullanici yi getirebiliriz.
+        public  async Task CreateEventAsync(EventDto eventDto,Guid id ) // cerezde id saklamak yerine mail ve sifre ile tekrardan kullanici yi getirebiliriz.
         {
-            var userholder = _userRepository.GetSingleAsync(x=> x.Id== eventDto.UserId).FirstOrDefault();
-            if (userholder == null)
+         
+            if (id == null)
             {
                 throw new Exception("There is not such a User");
             }
@@ -36,7 +36,7 @@ namespace GradProj.Application.ServiceImp
 
                 var event1 = new Event
                 {
-                    UserId = userholder.Id,
+                    UserId = id,
                     Title = eventDto.Title,
                     Description = eventDto.Description,
                     EventDate = eventDto.EventDate
@@ -44,7 +44,7 @@ namespace GradProj.Application.ServiceImp
                 await _repository.AddAsync(event1);
                 var userevent = new User_Events
                 {
-                    UserId = userholder.Id,
+                    UserId = id,
                     EventId = event1.Id,
                    
 
