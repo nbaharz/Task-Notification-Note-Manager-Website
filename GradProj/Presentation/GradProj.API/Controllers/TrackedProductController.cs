@@ -6,6 +6,7 @@ using GradProj.Domain.RepositoryAbs;
 using GradProj.Application.ServiceAbs;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using GradProj.Application.ServiceImp;
 
 namespace GradProj.API.Controllers
 {
@@ -67,5 +68,12 @@ namespace GradProj.API.Controllers
             return Ok(products);
         }
 
+        [Authorize]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUserProduct(Guid id)
+        {
+            _trackedProductsService.DeleteAsync(id);
+            return NoContent();
+        }
     }
 }

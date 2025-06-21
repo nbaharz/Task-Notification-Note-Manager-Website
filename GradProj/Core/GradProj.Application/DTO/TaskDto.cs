@@ -11,7 +11,8 @@ namespace GradProj.Application.DTO
     public class TaskDto
     {
         
-        public string Item { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         [EnumDataType(typeof(TaskPriority))]
         public TaskPriority Priority { get; set; }

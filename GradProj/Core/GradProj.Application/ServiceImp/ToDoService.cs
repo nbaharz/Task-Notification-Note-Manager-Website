@@ -35,7 +35,8 @@ namespace GradProj.Application.ServiceImp
                 var task = new ToDo
                 {
                     UserId = id,
-                    Item = taskdto.Item,
+                    Title = taskdto.Title,
+                    Description = taskdto.Description,
                     Priority = taskdto.Priority,
 
                 };

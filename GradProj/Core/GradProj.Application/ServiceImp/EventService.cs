@@ -51,10 +51,7 @@ namespace GradProj.Application.ServiceImp
                 };
                 await _userEventRepository.AddAsync(userevent);
 
-
             }
-
-
 
         }
 

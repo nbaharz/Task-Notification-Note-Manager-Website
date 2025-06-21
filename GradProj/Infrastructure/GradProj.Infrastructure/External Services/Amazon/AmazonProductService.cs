@@ -25,8 +25,7 @@ namespace GradProj.Infrastructure.External_Services.Amazon
             _client.DefaultRequestHeaders.Add("x-rapidapi-host", RapidApiHost);
         }
 
-        public async Task<ProductDetailDto> GetProductDetailsAsync(string amazonUrl) //Full urlyi yapistirabiliriz 
-            //productDetailDto olmali
+        public async Task<ProductDetailDto> GetProductDetailsAsync(string amazonUrl) //method imzasini (string amazonUrl, string productTitle) seklinde degistirmek gerekiyor title set edebilmek icin
         {
             var encodedUrl = Uri.EscapeDataString(amazonUrl);
             var requestUrl = $"{BaseUrl}/amz/amazon-lookup-product?url={encodedUrl}";

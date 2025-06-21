@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using GradProj.Application.DTO;
 using System;
 using System.Threading.Tasks;
+using GradProj.Application.ServiceImp;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GradProj.API.Controllers
 {
@@ -42,6 +45,23 @@ namespace GradProj.API.Controllers
 
             await _reminderService.CreateReminderAsync(dto);
             return Ok(new { message = "Reminder created successfully." });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult GetUserReminders()
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var tasks = _reminderService.GetUserSpecifiedReminders(userId);
+            if (tasks == null) return NotFound();
+            return Ok(tasks);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            _reminderService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

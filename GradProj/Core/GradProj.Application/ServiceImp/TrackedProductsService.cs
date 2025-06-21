@@ -74,5 +74,9 @@ namespace GradProj.Application.ServiceImp
             return  _trackedProductsRepository.GetSingleAsync(p => productIds.Contains(p.Id)).ToList();
 
         }
+        public void DeleteUserTask(Guid objectid)
+        {
+            _userTrackedProductsRepository.DeleteAsync(objectid);
+        }
     }
 }
