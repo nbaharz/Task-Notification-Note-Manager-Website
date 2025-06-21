@@ -40,11 +40,9 @@ namespace GradProj.API.Controllers
         [HttpPost]
         public async Task<IActionResult> SetReminder([FromBody] ReminderBaseDto dto)
         {
-            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+         var userIdClaim = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-            dto.UserId = userId;
-
-            await _reminderService.CreateReminderAsync(dto);
+            await _reminderService.CreateReminderAsync(dto, userIdClaim);
             return Ok(new { message = "Reminder created successfully." });
         }
 
