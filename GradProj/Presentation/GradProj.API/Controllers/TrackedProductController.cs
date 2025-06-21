@@ -4,6 +4,8 @@ using GradProj.Infrastructure.External_Services.Amazon;
 using System.Text.RegularExpressions;
 using GradProj.Domain.RepositoryAbs;
 using GradProj.Application.ServiceAbs;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GradProj.API.Controllers
 {
@@ -17,16 +19,16 @@ namespace GradProj.API.Controllers
         {
             _trackedProductsService= trackedProductsService;
         }
- 
-        [HttpGet("lookup")]
-        public async Task<IActionResult> GetProductDetails(string url, Guid userid)
+        [Authorize]
+        [HttpPost("lookup")]
+        public async Task<IActionResult> GetProductDetails(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
                 return BadRequest("URL boş olamaz.");
-
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             try
             {
-                var result = await _trackedProductsService.GetProductFromAmazon(url, userid);
+                var result = await _trackedProductsService.GetProductFromAmazon(url, userId);
                 
                 return Ok(result);
             }
@@ -51,6 +53,18 @@ namespace GradProj.API.Controllers
             {
                 return StatusCode(500, $"Axesso API hatası:\n{ex.Message}");
             }
+        }
+        [Authorize]
+        [HttpPost]
+        public  IActionResult GetUserTrackedProducts()
+        {
+            var userid = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var products =  _trackedProductsService.GetSpecifiedUserProducts(userid);
+
+            if (products == null || !products.Any())
+                return NotFound("Kullanıcıya ait ürün bulunamadı.");
+
+            return Ok(products);
         }
 
     }

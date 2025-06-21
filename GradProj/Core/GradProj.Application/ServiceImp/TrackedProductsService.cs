@@ -64,5 +64,15 @@ namespace GradProj.Application.ServiceImp
         {
           return await  _amazonProductService.GetDiscountInfoAsync(amazonUrl);
         }
+
+        public List<TrackedProducts> GetSpecifiedUserProducts(Guid userid)
+        {
+           var userTrackedProducts =  _userTrackedProductsRepository.GetSingleAsync(u => u.UserId == userid).ToList();
+            var productIds = userTrackedProducts
+      .Select(utp => utp.TrackedProductId)
+      .ToList();
+            return  _trackedProductsRepository.GetSingleAsync(p => productIds.Contains(p.Id)).ToList();
+
+        }
     }
 }
