@@ -45,9 +45,9 @@ namespace GradProj.API.Controllers
         }
         
         [HttpPost]
-        public   IActionResult LoginUser([FromBody] LoginDto loginDto) 
+        public async  Task<IActionResult> LoginUser([FromBody] LoginDto loginDto) 
         {
-            var token=   _userService.AuthUser(loginDto.Email, loginDto.Password);
+            var token=  await _userService.AuthUser(loginDto.Email, loginDto.Password);
             
 
             if (token == null) {
@@ -64,6 +64,14 @@ namespace GradProj.API.Controllers
 
             // Başarılı giriş durumunda kullanıcı bilgilerini döner
             return Ok(registerDTO);
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult GetName()
+        {
+            var userid = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var user = _userService.GetByIdAsync(userid).Result;
+            return Ok(new { Name = user.Name });
         }
     }
 

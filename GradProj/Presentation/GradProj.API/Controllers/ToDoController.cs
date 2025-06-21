@@ -57,10 +57,10 @@ namespace GradProj.API.Controllers
         }
         [Authorize]
         [HttpPost]
-        public IActionResult CreateTask([FromBody] TaskDto taskdto)
+        public async Task<IActionResult> CreateTask([FromBody] TaskDto taskdto)
         {
             var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            _toDoService.CreateTaskAsync(taskdto, userId);
+            await _toDoService.CreateTaskAsync(taskdto, userId);
             return Ok(taskdto);
 
         }

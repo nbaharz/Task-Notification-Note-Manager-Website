@@ -46,7 +46,7 @@ namespace GradProj.API.Controllers
         }
         [Authorize]
         [HttpPut]
-        public IActionResult CreateNote(NoteDto dto)
+        public IActionResult CreateNote( [FromBody]NoteDto dto)
         {
             var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var convertnote = new Note

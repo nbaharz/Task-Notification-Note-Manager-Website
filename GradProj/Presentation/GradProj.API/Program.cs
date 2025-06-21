@@ -78,9 +78,10 @@ namespace GradProj.API
             {
                 options.AddPolicy("AllowFrontend", policy =>
                 {
-                    policy.AllowAnyOrigin() // Next.js development adresi
+                    policy.WithOrigins("http://localhost:3000")  // Next.js development adresi
                           .AllowAnyHeader()
-                          .AllowAnyMethod();
+                          .AllowAnyMethod()
+                          .AllowCredentials();
                 });
             });
 
