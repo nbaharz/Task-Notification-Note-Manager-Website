@@ -9,7 +9,7 @@ namespace GradProj.Application.DTO
 {
     public class ReminderBaseDto
     {
-        public Guid UserId { get; set; }
+       
         public Guid ReferenceId { get; set; }
         public string ReferenceType { get; set; }
         public DateTime ReminderTime { get; set; }

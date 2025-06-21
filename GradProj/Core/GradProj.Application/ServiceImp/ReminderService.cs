@@ -33,7 +33,7 @@ namespace GradProj.Application.ServiceImp
         //    await _reminderRepository.AddAsync(reminder);
         //}
 
-        public async Task CreateReminderAsync(ReminderBaseDto dto)
+        public async Task CreateReminderAsync(ReminderBaseDto dto,Guid id)
         {
             // String'i enum'a çevir
             if (!Enum.TryParse<ReferenceType>(dto.ReferenceType, out ReferenceType referenceType))
@@ -43,7 +43,7 @@ namespace GradProj.Application.ServiceImp
 
             var reminder = new Reminder
             {
-                UserId = dto.UserId,
+                UserId = id,
                 ReferenceID = dto.ReferenceId,
                 ReminderTime = dto.ReminderTime,
                 Message = dto.Message,
