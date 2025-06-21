@@ -35,8 +35,6 @@ namespace GradProj.Domain.Entities
         Task,
         Event
     }
-    // This enum does not belong here cause
-    // UserEvents or Task Events shoul be able to reach that enum
-    // for setting Reminder
+   
 
 }

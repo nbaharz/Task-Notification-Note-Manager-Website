@@ -20,21 +20,39 @@ namespace GradProj.Application.ServiceImp
             _reminderRepository = reminderRepository;
         }
 
+        //public async Task CreateReminderAsync(ReminderBaseDto dto)
+        //{
+        //    var reminder = new Reminder
+        //    {
+        //        ReferenceID = dto.ReferenceId,
+        //        ReminderTime = dto.ReminderTime,
+        //        Message = dto.Message,
+        //        referenceType = dto.ReferenceType
+        //    };
+
+        //    await _reminderRepository.AddAsync(reminder);
+        //}
+
         public async Task CreateReminderAsync(ReminderBaseDto dto)
         {
+            // String'i enum'a çevir
+            if (!Enum.TryParse<ReferenceType>(dto.ReferenceType, out ReferenceType referenceType))
+            {
+                throw new ArgumentException($"Invalid ReferenceType: {dto.ReferenceType}");
+            }
+
             var reminder = new Reminder
             {
                 UserId = dto.UserId,
                 ReferenceID = dto.ReferenceId,
                 ReminderTime = dto.ReminderTime,
                 Message = dto.Message,
-                referenceType = dto.ReferenceType
+                referenceType = referenceType // Enum değeri
             };
 
             await _reminderRepository.AddAsync(reminder);
         }
-       
-      
+
         public List<Reminder> GetUserSpecifiedReminders(Guid userid)
         {
             return _reminderRepository.GetSingleAsync(u => u.UserId == userid).ToList();

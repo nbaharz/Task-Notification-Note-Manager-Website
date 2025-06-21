@@ -36,12 +36,13 @@ namespace GradProj.API.Controllers
 
             return Ok(reminder);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SetReminder([FromBody] ReminderBaseDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            dto.UserId = userId;
 
             await _reminderService.CreateReminderAsync(dto);
             return Ok(new { message = "Reminder created successfully." });

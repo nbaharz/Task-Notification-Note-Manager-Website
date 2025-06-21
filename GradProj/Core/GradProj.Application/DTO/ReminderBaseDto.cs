@@ -11,7 +11,7 @@ namespace GradProj.Application.DTO
     {
         public Guid UserId { get; set; }
         public Guid ReferenceId { get; set; }
-        public ReferenceType ReferenceType { get; set; }
+        public string ReferenceType { get; set; }
         public DateTime ReminderTime { get; set; }
         public string Message { get; set; } = string.Empty;
     }
