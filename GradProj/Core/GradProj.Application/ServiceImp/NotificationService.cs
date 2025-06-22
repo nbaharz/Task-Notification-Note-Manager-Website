@@ -28,11 +28,11 @@ namespace GradProj.Application.ServiceImp
             notification.CreatedAt = DateTime.Now;
             await _notificationRepository.AddAsync(notification);
 
-           // await _hubContext.Clients
-           //.User(notification.UserId.ToString())
-           //.SendAsync("ReceiveNotification", notification);
+            await _hubContext.Clients
+           .User(notification.UserId.ToString())
+           .SendAsync("ReceiveNotification", notification);
 
-           // Console.WriteLine($"[SignalR] Bildirim gönderildi → User: {notification.UserId}, Title: {notification.Message}");
+            Console.WriteLine($"[SignalR] Bildirim gönderildi → User: {notification.UserId}, Title: {notification.Message}");
         }
 
         public async Task<IEnumerable<Notification>> GetNotificationsByUserIdAsync(Guid userId)
