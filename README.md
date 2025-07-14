@@ -11,11 +11,11 @@ The external services infrastructure will be expanded in the future with new ext
 
 ## Backend Architecture 
 “The structure and design of software that operates and handles the backend logic on the server-side of a website is backend architecture.”. Mainly a backend architecture is a way of designing your backend software and how it is coded and structured to deal with the incoming requests and front ends. The onion architecture was selected for this project since it is frequently utilized in practical applications. The onion architecture was chosen for this project due to its common application in real-world situations. This software architecture aims to maintain low dependencies, enhance testability, and improve maintainability throughout development. It enables effective and sustainable product development by allowing the integration of new features without affecting existing components. Below is a definition of the layer structure of the onion architecture.
-**Domain Layer:** Contains core entities, and repository interfaces.
-**Application Layer:** Manages application’s behavior and consists of service interfaces, dependency injector classes, and data transfer objects (DTOs).
-**Infrastructure Layer:** Manages data access from external APIs, and background jobs.
-**Persistence Layer:** Manages all database-related operations, database context, and migration creation.
-**API Layer:** Provides HTTP endpoints with controllers.
+- **Domain Layer:** Contains core business entities and repository interfaces.  
+- **Application Layer:** Manages the application's behavior and includes service interfaces, dependency injection logic, and DTOs.  
+- **Infrastructure Layer:** Handles communication with external APIs and background services.  
+- **Persistence Layer:** Manages database operations, context configuration, and migrations.  
+- **API Layer:** Provides HTTP endpoints via controllers.
 
 This layered architecture guarantees flexibility and security by separating the responsibilities of each layer and limiting the communication between neighboring layers. Reformation works this way: the application layer refers to the domain layer to access core entities and repository abstractions, the API layer refers to the application layer to access business logic, and the Infrastructure and Persistence levels carry out the interfaces specified in the domain layer. The fundamental logic of the Onion architecture is protecting the current structure from external changes and possible security flaws by the strict dependency aspect. Separating these architectural roles and following a clear reference to the structure, improves system security, sustainability, and testability [2]. 
 
