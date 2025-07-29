@@ -23,4 +23,27 @@ This layered architecture guarantees flexibility and security by separating the 
 The application layer of onion architecture uses the Core layer, which manages database operations and follows the generic design pattern. This generic pattern aims to reduce code repetition by centralizing database operations with a single procedure that fits every database object. Optionally, it automatically determines the required database table and allows several actions to be performed efficiently from one place.
 In addition, all database operations (CRUD) are abstracted using the Interface Segregation Policy for each class in accordance with SOLID principles. This solution ensures the scalability and sustainability of the software by making it easier to introduce future methods specific to certain tables.
 
+## Used Technologies
+**Frontend**
+Next.js – App Router 
+Tailwind CSS – Utility-first CSS framework
+Framer Motion – Animations and transitions
+
+**Backend**
+ASP.NET Core Web API – RESTful API development
+Entity Framework Core – ORM (Code First / DB First)
+MySQL – Relational database
+Docker – Containerization for MySQL and other services
+Hangfire – Background job scheduling
+SignalR – Real-time notifications
+JWT (JSON Web Tokens) – Authentication & authorization
+
+**DevOps & Tools**
+Git & GitHub – Version control and collaboration
+Postman – API testing tool
+Visual Studio / VS Code – Code editors and IDEs
+
+
+
+
 
