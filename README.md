@@ -25,23 +25,25 @@ In addition, all database operations (CRUD) are abstracted using the Interface S
 
 ## Used Technologies
 **Frontend**
-Next.js – App Router 
-Tailwind CSS – Utility-first CSS framework
-Framer Motion – Animations and transitions
+- Next.js – App Router 
+- Tailwind CSS – Utility-first CSS framework
+- Framer Motion – Animations and transitions
 
 **Backend**
-ASP.NET Core Web API – RESTful API development
-Entity Framework Core – ORM (Code First / DB First)
-MySQL – Relational database
-Docker – Containerization for MySQL and other services
-Hangfire – Background job scheduling
-SignalR – Real-time notifications
-JWT (JSON Web Tokens) – Authentication & authorization
+- ASP.NET Core Web API – RESTful API development
+- Entity Framework Core – ORM (Code First / DB First)
+- MySQL – Relational database
+- Docker – Containerization for MySQL and other services
+- Hangfire – Background job scheduling
+- SignalR – Real-time notifications
+- JWT (JSON Web Tokens) – Authentication & authorization
 
 **DevOps & Tools**
-Git & GitHub – Version control and collaboration
-Postman – API testing tool
-Visual Studio / VS Code – Code editors and IDEs
+- Git & GitHub – Version control and collaboration
+- Postman – API testing tool
+- Visual Studio / VS Code – Code editors and IDEs
+- DBeaver – Database management and visualization
+  
 
 
 
