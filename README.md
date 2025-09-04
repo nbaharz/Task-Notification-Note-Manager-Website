@@ -50,10 +50,10 @@ In addition, all database operations (CRUD) are abstracted using the Interface S
 ## 📸 Screenshots
 
 ### Landing Page
-![Landing Page](landing.png)
+![Landing Page](LandingPage.png)
 
 ### Board Page
-![Board Page](board.png)
+![Board Page](BoardPage.png)
   
 
 
