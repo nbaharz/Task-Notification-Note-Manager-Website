@@ -12,6 +12,7 @@ namespace GradProj.Application.ServiceAbs
     {
         RegisterDto RegisterUser(RegisterDto newuser);
         Task<string?> AuthUser( string email, string password);
+      
 
 
     }

@@ -20,11 +20,14 @@ namespace GradProj.Application.ServiceImp
     {
         protected readonly IUserRepository _userRepository; //bu amk reposu servis entitisinin tipinde olmak zorunda
         private readonly IConfiguration _config;
+        private readonly ITokenGenerator _tokenGenerator;
 
-        public UserService(IUserRepository repository, IConfiguration configuration) : base(repository)
+        public UserService(IUserRepository repository, IConfiguration configuration, ITokenGenerator tokenGenerator) : base(repository)
         {
             _userRepository = repository;
-            _config = configuration;    
+            _config = configuration;
+            _tokenGenerator = tokenGenerator;
+
 
         }
 
@@ -32,29 +35,19 @@ namespace GradProj.Application.ServiceImp
         {
             var checkuser = _repository.GetSingleAsync(x=> x.Email == email && x.Password == password).FirstOrDefault();
 
+
+
             if (checkuser==null)
             {
                 throw new Exception("There is not such a User");
                 
             }
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.Email, checkuser.Email),
-                new Claim(ClaimTypes.NameIdentifier, checkuser.Id.ToString())
-            }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                Issuer = _config["Jwt:Issuer"],
-                Audience = _config["Jwt:Audience"],
-                SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            if (!checkuser.IsVerified)
+                throw new Exception("E-posta doğrulanmamış.");
+
+            var token = _tokenGenerator.LoginTokenGenerator(checkuser);
+            return token;
 
 
         }
@@ -62,6 +55,7 @@ namespace GradProj.Application.ServiceImp
         public RegisterDto RegisterUser(RegisterDto newuser)
         {
 
+             
             var checkuser = _repository.GetSingleAsync(u => u.Email == newuser.Email).FirstOrDefault();
             if (checkuser == null)
             {
@@ -71,8 +65,13 @@ namespace GradProj.Application.ServiceImp
                     Surname = newuser.Surname,
                     Email = newuser.Email,
                     Password = newuser.Password,
-                    Role = "User"
+                    Role = "User",
+                   
+
+
                 };
+                var verificationToken = _tokenGenerator.VerificationTokenGenerator(NewUser);
+                Console.WriteLine("Verification Token: " + verificationToken);
                 _repository.AddAsync(NewUser);
                 return newuser;
             }
@@ -83,6 +82,7 @@ namespace GradProj.Application.ServiceImp
 
 
         }
+
 
     }
 }

@@ -33,6 +33,8 @@ namespace GradProj.API
 
             // We add this section
             builder.Services.AddPersistenceServices(builder.Configuration);
+            // Token generator service ekliyoruz
+            builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
             builder.Services.RegisterAllServices();
             builder.Services.AddControllers()
              .AddJsonOptions(options =>
@@ -50,6 +52,7 @@ namespace GradProj.API
            
             //Amazon isDiscounted method denemesi icin
             builder.Services.AddScoped<AmazonProductService>();
+            
            
             //....................
             builder.Services.AddSignalR();
