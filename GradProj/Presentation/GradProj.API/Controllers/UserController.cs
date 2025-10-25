@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using GradProj.Infrastructure.External_Services.Mailkit;
+using MailKit;
 
 namespace GradProj.API.Controllers
 {
@@ -14,10 +16,12 @@ namespace GradProj.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly ITokenGenerator _tokenGenerator;
+       
         public UserController(IUserService userService, ITokenGenerator tokenGenerator)
         {
             _userService = userService;
             _tokenGenerator = tokenGenerator;
+            
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -97,6 +101,12 @@ namespace GradProj.API.Controllers
             }
 
         }
+        //[HttpGet("test-mail")]
+        //public async Task<IActionResult> TestMail([FromServices] IMailKitService mailkitService)
+        //{
+        //    await _mailkitService.SendEmailAsync("kadircankahvci@gmail.com", "Mail Test", "<h2>MailKit çalışıyor 🔥</h2>");
+        //    return Ok("Mail gönderildi!");
+        //}
 
     }
 }

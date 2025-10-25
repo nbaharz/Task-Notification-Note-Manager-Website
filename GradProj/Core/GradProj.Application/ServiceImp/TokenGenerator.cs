@@ -66,7 +66,7 @@ namespace GradProj.Application.ServiceImp
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var emailClaim1 = jwtToken.Claims.FirstOrDefault(x =>x.Type == ClaimTypes.Email || x.Type  == "email");
-                
+               
                 var purposeClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == "purpose");
                 
 

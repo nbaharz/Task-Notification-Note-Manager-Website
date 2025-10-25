@@ -12,6 +12,7 @@ using GradProj.Domain.Entities;
 using GradProj.Domain.RepositoryAbs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 
 
 namespace GradProj.Application.ServiceImp
@@ -21,12 +22,14 @@ namespace GradProj.Application.ServiceImp
         protected readonly IUserRepository _userRepository; //bu amk reposu servis entitisinin tipinde olmak zorunda
         private readonly IConfiguration _config;
         private readonly ITokenGenerator _tokenGenerator;
+        private readonly ISender _sender;
 
-        public UserService(IUserRepository repository, IConfiguration configuration, ITokenGenerator tokenGenerator) : base(repository)
+        public UserService(IUserRepository repository, IConfiguration configuration, ITokenGenerator tokenGenerator, ISender sender) : base(repository)
         {
             _userRepository = repository;
             _config = configuration;
             _tokenGenerator = tokenGenerator;
+            _sender = sender;
 
 
         }
@@ -52,7 +55,7 @@ namespace GradProj.Application.ServiceImp
 
         }
 
-        public RegisterDto RegisterUser(RegisterDto newuser)
+        public  async Task<RegisterDto> RegisterUser(RegisterDto newuser)
         {
 
              
@@ -70,9 +73,14 @@ namespace GradProj.Application.ServiceImp
 
 
                 };
+             
                 var verificationToken = _tokenGenerator.VerificationTokenGenerator(NewUser);
-                Console.WriteLine("Verification Token: " + verificationToken);
+                var encodedToken = Uri.EscapeDataString(verificationToken);
+                //Console.WriteLine("Verification Token: " + verificationToken);
+                var link = $"http://localhost:5211/api/User/VerifyEmail/verify?token={encodedToken}";
                 _repository.AddAsync(NewUser);
+                await _sender.SendMailkitAsync(newuser.Email, "Email Verification", $"Please verify your email by clicking on the link: {link}");
+
                 return newuser;
             }
             else {

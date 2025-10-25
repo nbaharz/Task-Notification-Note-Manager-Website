@@ -2,6 +2,7 @@ using GradProj.Application;
 
 using GradProj.Application.ServiceAbs;
 using GradProj.Application.ServiceImp;
+using GradProj.Infrastructure.External_Services.Mailkit;
 using GradProj.Infrastructure.Background_Jobs;
 using GradProj.Infrastructure.Configurations;
 using GradProj.Infrastructure.External_Services.Amazon;
@@ -13,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using System.Text;
+using GradProj.Application.DI;
+using GradProj.Infrastructure.External_Services.Sender;
 
 
 
@@ -35,6 +38,10 @@ namespace GradProj.API
             builder.Services.AddPersistenceServices(builder.Configuration);
             // Token generator service ekliyoruz
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+            // Mail gönderici service ekliyoruz
+            builder.Services.AddScoped<ISender, MailSender>();
+            // MailKit service ekliyoruz
+            builder.Services.AddScoped<IMailKitService, MailKitService>();
             builder.Services.RegisterAllServices();
             builder.Services.AddControllers()
              .AddJsonOptions(options =>
